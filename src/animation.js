@@ -9,14 +9,18 @@ import { mouse } from './mouse'
 import { scene, cameraTarget } from './scene'
 
 const timer = new THREE.Timer()
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
 export function animate() {
 
     requestAnimationFrame(animate)
 
+    if (document.hidden) return
+
     timer.update()
 
     const elapsed = timer.getElapsed()
+    const motionTime = reducedMotion.matches ? elapsed * .18 : elapsed
 
     stars.rotation.y = elapsed * 0.01
     stars.rotation.x = elapsed * 0.002
@@ -24,7 +28,7 @@ export function animate() {
     planet.rotation.y += 0.0004
     atmosphere.rotation.y += 0.0004
 
-    updateLogo(elapsed)
+    updateLogo(motionTime)
 
     logo.position.y =
         Math.sin(elapsed * 0.35) * 0.12

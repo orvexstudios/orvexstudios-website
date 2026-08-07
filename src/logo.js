@@ -12,6 +12,7 @@ logo.add(energyField)
 const coreMaterial = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
+    depthTest: false,
     blending: THREE.AdditiveBlending,
     uniforms: { uTime: { value: 0 } },
     vertexShader: `
@@ -28,13 +29,15 @@ const coreMaterial = new THREE.ShaderMaterial({
             vec2 p = vUv - .5;
             float radius = length(p) * 2.0;
             float angle = atan(p.y, p.x);
-            float turbulence = sin(angle * 7.0 - uTime * .16 + radius * 13.0) * .026;
-            float innerRing = exp(-pow(radius - .34 - turbulence, 2.0) * 165.0);
-            float outerRing = exp(-pow(radius - .62 + turbulence, 2.0) * 36.0) * .42;
-            float plasma = smoothstep(.92, .2, radius) * (.42 + .58 * sin(angle * 3.0 + radius * 10.0 + uTime * .1));
-            float energy = max(innerRing * 1.35, outerRing) + plasma * .11;
+            float turbulence = sin(angle * 7.0 - uTime * .12 + radius * 13.0);
+            turbulence += sin(angle * 11.0 + uTime * .08 - radius * 19.0) * .45;
+            turbulence *= .018;
+            float innerRing = exp(-pow(radius - .34 - turbulence, 2.0) * 175.0);
+            float outerRing = exp(-pow(radius - .61 + turbulence, 2.0) * 39.0) * .38;
+            float plasma = smoothstep(.88, .22, radius) * (.5 + .5 * sin(angle * 3.0 + radius * 11.0 + uTime * .08));
+            float energy = max(innerRing * 1.38, outerRing) + plasma * .085;
             float fade = smoothstep(1.0, .18, radius);
-            vec3 color = mix(vec3(.92, .11, .008), vec3(1.0, .72, .22), clamp(energy * 1.25, 0.0, 1.0));
+            vec3 color = mix(vec3(.86, .055, .004), vec3(1.0, .67, .16), clamp(energy * 1.28, 0.0, 1.0));
             color += vec3(1.0, .24, .015) * outerRing;
             float alpha = energy * fade;
             gl_FragColor = vec4(color, alpha);
@@ -47,10 +50,11 @@ core.renderOrder = -2
 energyField.add(core)
 
 const eventHorizon = new THREE.Mesh(
-    new THREE.CircleGeometry(.29, 64),
-    new THREE.MeshBasicMaterial({ color: 0x020101, transparent: true, opacity: .98, depthWrite: false })
+    new THREE.CircleGeometry(.36, 64),
+    new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .995, depthWrite: false, depthTest: false })
 )
 eventHorizon.position.z = .02
+eventHorizon.renderOrder = 20
 energyField.add(eventHorizon)
 
 const accretionMaterial = new THREE.MeshBasicMaterial({
@@ -59,6 +63,7 @@ const accretionMaterial = new THREE.MeshBasicMaterial({
     opacity: .34,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
+    depthTest: false,
     side: THREE.DoubleSide
 })
 
@@ -98,7 +103,8 @@ const particles = new THREE.Points(particleGeometry, new THREE.PointsMaterial({
     transparent: true,
     opacity: .62,
     blending: THREE.AdditiveBlending,
-    depthWrite: false
+    depthWrite: false,
+    depthTest: false
 }))
 energyField.add(particles)
 
@@ -109,7 +115,7 @@ logo.add(energyLight)
 const loader = new GLTFLoader()
 
 loader.load(
-    '/orvex-logo.glb',
+    '/ORVEXLOGO.glb',
     (gltf) => {
         const model = gltf.scene
         const bounds = new THREE.Box3().setFromObject(model)
@@ -120,6 +126,9 @@ loader.load(
         model.position.sub(center)
         model.scale.setScalar(4.25 / largestDimension)
 
+        // The asymmetric Blender mark's optical centre sits above its bounding-box centre.
+        energyField.position.set(0, 1.55, -.2)
+
         model.traverse((child) => {
             if (!child.isMesh) return
 
@@ -129,6 +138,7 @@ loader.load(
             const materials = Array.isArray(child.material) ? child.material : [child.material]
             materials.forEach((material) => {
                 material.transparent = material.transparent || material.opacity < 1
+                material.dithering = true
                 material.needsUpdate = true
             })
         })
@@ -144,16 +154,16 @@ scene.add(logo)
 
 export function updateLogo(elapsed) {
     coreMaterial.uniforms.uTime.value = elapsed
-    innerDisk.rotation.z = -.24 + elapsed * .025
-    outerDisk.rotation.z = .38 - elapsed * .015
-    particles.rotation.z = elapsed * .035
+    innerDisk.rotation.z = -.24 + elapsed * .021
+    outerDisk.rotation.z = .38 - elapsed * .012
+    particles.rotation.z = elapsed * .026
     energyField.rotation.z = Math.sin(elapsed * .09) * .018
 
-    const pulse = 1 + Math.sin(elapsed * .48) * .025
+    const pulse = 1 + Math.sin(elapsed * .42) * .018
     core.scale.setScalar(pulse)
     energyLight.intensity = 4.25 + Math.sin(elapsed * .52) * .35
 
     if (logo.userData.model) {
-        logo.userData.model.rotation.y = Math.sin(elapsed * .12) * .055
+        logo.userData.model.rotation.y = Math.sin(elapsed * .1) * .038
     }
 }
