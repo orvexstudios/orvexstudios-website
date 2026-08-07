@@ -58,10 +58,12 @@ function enhanceLogoMaterial(material) {
 }
 
 const loader = new GLTFLoader()
-
-loader.load(
+const logoSources = [
     '/ORVEXLOGO.glb',
-    (gltf) => {
+    'https://media.githubusercontent.com/media/orvexstudios/orvexstudios-website/main/public/ORVEXLOGO.glb'
+]
+
+function mountLogo(gltf) {
         const model = gltf.scene
         const bounds = new THREE.Box3().setFromObject(model)
         const size = bounds.getSize(new THREE.Vector3())
@@ -84,10 +86,27 @@ loader.load(
 
         logo.add(model)
         logo.userData.model = model
-    },
-    undefined,
-    (error) => console.error('Unable to load the ORVEX logo model.', error)
-)
+}
+
+function loadLogo(sourceIndex = 0) {
+    loader.load(
+        logoSources[sourceIndex],
+        mountLogo,
+        undefined,
+        (error) => {
+            const nextSource = sourceIndex + 1
+
+            if (nextSource < logoSources.length) {
+                loadLogo(nextSource)
+                return
+            }
+
+            console.error('Unable to load the ORVEX logo model.', error)
+        }
+    )
+}
+
+loadLogo()
 
 scene.add(logo)
 
