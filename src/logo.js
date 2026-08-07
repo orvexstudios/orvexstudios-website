@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
 
 import { scene } from './scene'
 
@@ -58,9 +59,11 @@ function enhanceLogoMaterial(material) {
 }
 
 const loader = new GLTFLoader()
+loader.setMeshoptDecoder(MeshoptDecoder)
+
 const logoSources = [
-    '/ORVEXLOGO.glb',
-    'https://media.githubusercontent.com/media/orvexstudios/orvexstudios-website/main/public/ORVEXLOGO.glb'
+    '/ORVEXLOGO-web.glb',
+    'https://raw.githubusercontent.com/orvexstudios/orvexstudios-website/main/public/ORVEXLOGO-web.glb'
 ]
 
 function mountLogo(gltf) {

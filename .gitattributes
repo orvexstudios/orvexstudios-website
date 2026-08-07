@@ -1,2 +1,6 @@
 # Store high-resolution 3D studio assets outside the regular Git pack.
 *.glb filter=lfs diff=lfs merge=lfs -text
+
+# The compressed web delivery asset stays in regular Git so Vercel serves the
+# actual binary even when Git LFS support is disabled for the project.
+public/ORVEXLOGO-web.glb -filter -diff -merge -text
