@@ -587,3 +587,239 @@ body{ background:var(--ink); font-family:"Arial Nova",Arial,Helvetica,sans-serif
 
 @media(max-width:1100px){ .navbar{ padding:15px 19px; }.navbar ul{ gap:16px; }.navbar a{ font-size:11px; }.creature-grid,.tech-grid,.why-grid,.career-grid{ grid-template-columns:repeat(2,1fr); }.media-grid{ grid-template-columns:repeat(2,1fr); }.project-card{ grid-template-columns:1fr; }.project-image{ min-height:390px; }.project-info{ padding:38px; }.pipeline-grid{ grid-template-columns:repeat(2,1fr); }.roadmap-grid{ grid-template-columns:repeat(2,1fr); }.roadmap-grid::before{ display:none; }.news-grid{ grid-template-columns:1fr; }.news-card{ min-height:220px; } }
 @media(max-width:680px){ .navbar{ width:calc(100% - 24px); top:10px; border-radius:13px; }.logo-nav{ font-size:16px; }.navbar ul{ display:none; }.hero{ min-height:760px; padding:135px 7vw 75px; justify-content:center; }.hero h1{ font-size:62px; }.hero-buttons{ flex-direction:column; align-items:stretch; }.hero-buttons button{ width:100%; }.section{ padding:92px 6vw; }.project-header{ margin-bottom:34px; }.about-container{ gap:37px; }.about-left h2,.project-header h2{ font-size:43px; }.glass-card{ padding:29px; }.creature-grid,.tech-grid,.why-grid,.career-grid,.media-grid,.pipeline-grid,.roadmap-grid,.stats-grid{ grid-template-columns:1fr; }.creature-card{ min-height:0; }.creature-card img,.creature-visual{ height:220px; }.project-image,.project-visual{ min-height:260px; }.project-info{ padding:26px; }.project-row{ padding:14px 0; }.project-row strong{ max-width:52%; }.pipeline-card{ min-height:105px; }.roadmap-card{ min-height:150px; }.stats-grid{ gap:1px; }.stat-card{ min-height:135px; }.news-card{ min-height:235px; }.media-box{ min-height:170px; } }
+
+/* ======================================================
+   CONTACT CINEMATIC — EARTH APPROACH
+======================================================= */
+
+.contact-section{
+    --contact-light:0;
+    position:relative;
+    min-height:320vh;
+    padding:0;
+    isolation:isolate;
+}
+
+.contact-section > .project-wrapper[hidden]{ display:none!important; }
+
+.contact-cinematic{
+    position:sticky;
+    top:0;
+    width:100%;
+    height:100vh;
+    min-height:640px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    padding:clamp(110px,13vh,150px) 8vw 7vh;
+}
+
+.contact-cinematic::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:calc(var(--contact-light) * .88);
+    background:
+        radial-gradient(circle at 79% 49%,rgba(72,137,220,.16),transparent 23%),
+        radial-gradient(circle at 63% 64%,rgba(221,180,123,.07),transparent 38%);
+}
+
+.contact-cinematic-shade{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+        linear-gradient(90deg,rgba(1,3,7,.80) 0%,rgba(1,3,7,.54) 35%,rgba(1,3,7,.08) 63%,rgba(1,3,7,.14) 100%),
+        linear-gradient(0deg,rgba(1,3,7,.72),transparent 30%,transparent 76%,rgba(1,3,7,.30));
+}
+
+.contact-flight-status{
+    position:absolute;
+    z-index:2;
+    top:clamp(96px,12vh,132px);
+    right:8vw;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:rgba(206,226,248,.68);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.20em;
+}
+
+.contact-status-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#8fc7ff;
+    box-shadow:0 0 0 5px rgba(107,174,238,.10),0 0 16px rgba(123,190,255,.70);
+}
+
+.contact-cinematic-copy{
+    position:relative;
+    z-index:2;
+    width:min(620px,53vw);
+}
+
+.contact-cinematic-kicker{
+    margin-bottom:22px;
+    color:#9bc9f4;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.24em;
+}
+
+.contact-cinematic-copy h2{
+    margin:0 0 27px;
+    color:#f7f9fc;
+    font-size:clamp(57px,7.1vw,106px);
+    font-weight:700;
+    line-height:.82;
+    letter-spacing:-.067em;
+    text-shadow:0 12px 55px rgba(0,0,0,.46);
+}
+
+.contact-cinematic-lead{
+    max-width:570px;
+    color:rgba(224,230,237,.76);
+    font-size:clamp(15px,1.35vw,19px);
+    line-height:1.72;
+}
+
+.contact-cinematic-actions{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:12px;
+    margin-top:31px;
+}
+
+.contact-cinematic-cta,
+.contact-cinematic-copy-button{
+    min-height:53px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    border-radius:999px;
+    font:inherit;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.07em;
+    text-decoration:none;
+    transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s ease,background .3s ease,box-shadow .3s ease;
+}
+
+.contact-cinematic-cta{
+    padding:0 25px;
+    color:#07101a;
+    background:#dcecff;
+    box-shadow:0 12px 34px rgba(87,156,222,.18);
+}
+
+.contact-cinematic-cta span{ font-size:17px; }
+
+.contact-cinematic-copy-button{
+    padding:0 21px;
+    color:#eef6ff;
+    cursor:pointer;
+    border:1px solid rgba(187,218,248,.23);
+    background:rgba(115,161,204,.075);
+}
+
+.contact-cinematic-cta:hover,
+.contact-cinematic-copy-button:hover{
+    transform:translateY(-3px);
+    border-color:rgba(188,220,250,.55);
+    box-shadow:0 14px 38px rgba(73,136,196,.20);
+}
+
+.contact-cinematic-email{
+    display:block;
+    width:max-content;
+    max-width:100%;
+    margin-top:24px;
+    color:rgba(206,225,244,.76);
+    font-size:12px;
+    letter-spacing:.055em;
+    text-decoration:none;
+    overflow-wrap:anywhere;
+    transition:color .25s ease,text-shadow .25s ease;
+}
+
+.contact-cinematic-email:hover{
+    color:#fff;
+    text-shadow:0 0 20px rgba(124,187,246,.55);
+}
+
+.contact-copy-feedback{
+    min-height:17px;
+    margin-top:9px;
+    color:#a9d4fb;
+}
+
+.contact-cinematic-socials{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px 25px;
+    margin-top:22px;
+}
+
+.contact-cinematic-socials a{
+    color:rgba(205,215,225,.52);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.13em;
+    text-decoration:none;
+    text-transform:uppercase;
+    transition:color .25s ease;
+}
+
+.contact-cinematic-socials a:hover{ color:#cfe8ff; }
+
+.contact-orbit-meta{
+    position:absolute;
+    z-index:2;
+    right:8vw;
+    bottom:7vh;
+    display:flex;
+    gap:20px;
+    color:rgba(199,218,236,.38);
+    font-size:8px;
+    letter-spacing:.17em;
+}
+
+.footer{
+    position:relative;
+    z-index:2;
+    background:linear-gradient(180deg,transparent,rgba(2,5,10,.82) 20%);
+}
+
+@media(max-width:900px){
+    .contact-section{ min-height:290vh; }
+    .contact-cinematic{ align-items:flex-end; padding:118px 7vw 10vh; }
+    .contact-cinematic-copy{ width:min(640px,78vw); }
+    .contact-cinematic-shade{ background:linear-gradient(0deg,rgba(1,3,7,.92) 0%,rgba(1,3,7,.58) 49%,rgba(1,3,7,.04) 82%); }
+    .contact-flight-status{ right:7vw; }
+    .contact-orbit-meta{ display:none; }
+}
+
+@media(max-width:680px){
+    .contact-section{ min-height:270vh; }
+    .contact-cinematic{ min-height:620px; padding:105px 6vw 7vh; }
+    .contact-cinematic-copy{ width:100%; }
+    .contact-cinematic-copy h2{ font-size:clamp(52px,16.5vw,76px); }
+    .contact-cinematic-lead{ max-width:94%; font-size:15px; line-height:1.58; }
+    .contact-flight-status{ top:86px; left:6vw; right:auto; font-size:8px; }
+    .contact-cinematic-actions{ align-items:stretch; margin-top:24px; }
+    .contact-cinematic-cta,.contact-cinematic-copy-button{ width:100%; }
+    .contact-cinematic-socials{ gap:11px 17px; }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .contact-cinematic-cta,
+    .contact-cinematic-copy-button{ transition:none; }
+}

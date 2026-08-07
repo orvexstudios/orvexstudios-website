@@ -1407,9 +1407,61 @@
 <!-- CONTACT -->
 <!-- ======================================== -->
 
-<section id="contact" class="section contact-section">
+<section id="contact" class="contact-section" aria-label="Contact ORVEX Studios">
 
-    <div class="project-wrapper">
+    <div class="contact-cinematic">
+        <div class="contact-cinematic-shade" aria-hidden="true"></div>
+
+        <div class="contact-flight-status" aria-hidden="true" data-contact-reveal>
+            <span class="contact-status-dot"></span>
+            <span>EARTH APPROACH // CHANNEL OPEN</span>
+        </div>
+
+        <div class="contact-cinematic-copy">
+            <p class="contact-cinematic-kicker" data-contact-reveal>GLOBAL COLLABORATION</p>
+
+            <h2 data-contact-reveal>
+                Ideas without<br>borders.
+            </h2>
+
+            <p class="contact-cinematic-lead" data-contact-reveal>
+                From cinematic creatures to ambitious real-time worlds —
+                ORVEX STUDIOS partners with people who want to create what does not exist yet.
+            </p>
+
+            <div class="contact-cinematic-actions" data-contact-reveal>
+                <a class="contact-cinematic-cta" href="mailto:founder@orvexstudios.com?subject=Project%20inquiry">
+                    Start a project <span aria-hidden="true">↗</span>
+                </a>
+
+                <button class="contact-cinematic-copy-button" type="button" data-copy-email="founder@orvexstudios.com">
+                    <span class="copy-icon" aria-hidden="true"></span>
+                    <span class="copy-label">Copy email</span>
+                </button>
+            </div>
+
+            <a class="contact-cinematic-email" href="mailto:founder@orvexstudios.com" data-contact-reveal>
+                founder@orvexstudios.com
+            </a>
+
+            <p class="copy-status contact-copy-feedback" aria-live="polite"></p>
+
+            <nav class="contact-cinematic-socials" aria-label="Social media" data-contact-reveal>
+                <a href="#">ArtStation</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+            </nav>
+        </div>
+
+        <div class="contact-orbit-meta" aria-hidden="true" data-contact-reveal>
+            <span>ORVEX STUDIOS</span>
+            <span>48.8566° N</span>
+            <span>GLOBAL SIGNAL</span>
+        </div>
+    </div>
+
+    <div class="project-wrapper" hidden aria-hidden="true">
 
         <div class="project-header contact-header">
 
@@ -1561,7 +1613,7 @@
     document.querySelectorAll('[data-copy-email]').forEach((button) => {
         button.addEventListener('click', async () => {
             const email = button.dataset.copyEmail;
-            const status = button.closest('.contact-command-copy, .contact-card').querySelector('.copy-status');
+            const status = button.closest('.contact-cinematic-copy, .contact-command-copy, .contact-card').querySelector('.copy-status');
             const label = button.querySelector('.copy-label');
             try {
                 await navigator.clipboard.writeText(email);
@@ -1587,7 +1639,7 @@
     });
 
     const revealItems = document.querySelectorAll(
-        '.about-container > *, .project-header, .project-card, .creature-card, .tech-card, .pipeline-card, .roadmap-card, .why-card, .stat-card, .news-card, .media-box, .career-card, .contact-command, .contact-card, .footer'
+        '.about-container > *, .project-header, .project-card, .creature-card, .tech-card, .pipeline-card, .roadmap-card, .why-card, .stat-card, .news-card, .media-box, .career-card, .footer'
     );
     revealItems.forEach((item) => item.classList.add('studio-reveal'));
 

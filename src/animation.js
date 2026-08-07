@@ -7,6 +7,7 @@ import { camera } from './camera'
 import { composer } from './renderer'
 import { mouse } from './mouse'
 import { scene, cameraTarget } from './scene'
+import { updateContactCinematic } from './contactCinematic'
 
 const timer = new THREE.Timer()
 
@@ -29,16 +30,20 @@ export function animate() {
     logo.position.y =
         Math.sin(elapsed * 0.35) * 0.12
 
-    cameraTarget.position.y =
-        Math.sin(elapsed * 0.8) * 0.05  
+    const contactCinematicActive = updateContactCinematic(elapsed)
 
-    camera.position.x +=
-    (mouse.x * 0.15 - camera.position.x) * 0.02
+    if (!contactCinematicActive) {
+        cameraTarget.position.y =
+            Math.sin(elapsed * 0.8) * 0.05
 
-    camera.position.y +=
-    (mouse.y * 0.10 - camera.position.y) * 0.02
+        camera.position.x +=
+            (mouse.x * 0.15 - camera.position.x) * 0.02
 
-    camera.lookAt(cameraTarget.position)
+        camera.position.y +=
+            (mouse.y * 0.10 - camera.position.y) * 0.02
+
+        camera.lookAt(cameraTarget.position)
+    }
 
 
     composer.render()
