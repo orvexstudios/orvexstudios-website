@@ -20,15 +20,40 @@ const material = new THREE.MeshStandardMaterial({
 
     map: planetTexture,
 
-    roughness: 0.85,
+    roughness: 0.92,
 
-    metalness: 0.02,
-
-    emissive: 0xff5a1f,
-
-    emissiveIntensity: 0.15
+    metalness: 0.01
 
 })
+
+material.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <map_fragment>',
+        `#include <map_fragment>
+
+        // Separate the existing orange lava from the neutral volcanic rock.
+        float lavaChroma = diffuseColor.r - max(diffuseColor.g, diffuseColor.b);
+        float lavaMask = smoothstep(0.045, 0.20, lavaChroma)
+            * smoothstep(0.09, 0.42, diffuseColor.r)
+            * (1.0 - smoothstep(0.30, 0.60, diffuseColor.b));
+
+        vec3 darkRock = diffuseColor.rgb * 0.18;
+        vec3 hotLava = diffuseColor.rgb * 1.08 + vec3(0.055, 0.006, 0.0);
+        diffuseColor.rgb = mix(darkRock, hotLava, lavaMask);
+        `
+    )
+
+    shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <emissivemap_fragment>',
+        `#include <emissivemap_fragment>
+
+        // Emission remains strictly confined to the lava already in the texture.
+        totalEmissiveRadiance += vec3(1.0, 0.13, 0.008) * lavaMask * 0.38;
+        `
+    )
+}
+
+material.customProgramCacheKey = () => 'orvex-dark-rock-bright-lava-v1'
 
 export const planet = new THREE.Mesh(
 
