@@ -114,4 +114,13 @@ export function updateLogo(elapsed) {
     for (const shader of energyShaders) {
         shader.uniforms.uLogoTime.value = elapsed
     }
+
+    if (logo.userData.model) {
+        const model = logo.userData.model
+
+        // Slow satellite-like drift: one calm revolution in roughly three minutes.
+        model.rotation.z = elapsed * .035
+        model.rotation.x = Math.sin(elapsed * .055) * .045
+        model.rotation.y = Math.sin(elapsed * .045) * .075
+    }
 }
