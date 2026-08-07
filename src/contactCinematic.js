@@ -19,21 +19,21 @@ const hopefulBackground = new THREE.Color(0x030914)
 
 const cameraPath = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, 0, 12),
-    new THREE.Vector3(2, .8, 34),
-    new THREE.Vector3(8, 2.4, 66),
-    new THREE.Vector3(18, 3.5, 79),
-    new THREE.Vector3(28, 3, 56),
-    new THREE.Vector3(26, 2.2, 8),
+    new THREE.Vector3(-5, 1, -4),
+    new THREE.Vector3(-15, 3, -18),
+    new THREE.Vector3(-17, 6, -35),
+    new THREE.Vector3(-14, 5, -60),
+    new THREE.Vector3(3, 3, -76),
     new THREE.Vector3(19, 1, -43)
 ], false, 'catmullrom', .62)
 
 const targetPath = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(-8, 1, -22),
-    new THREE.Vector3(3, 2, -42),
-    new THREE.Vector3(17, 1, -60),
-    new THREE.Vector3(27, 0, -74),
-    new THREE.Vector3(29, -1, -80),
+    new THREE.Vector3(-22, 2, -25),
+    new THREE.Vector3(-42, 3, -48),
+    new THREE.Vector3(-48, 3, -50),
+    new THREE.Vector3(-20, 1, -64),
+    new THREE.Vector3(12, -1, -75),
     new THREE.Vector3(28, -1.5, -82)
 ], false, 'catmullrom', .58)
 
