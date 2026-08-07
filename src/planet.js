@@ -65,7 +65,7 @@ export const planet = new THREE.Mesh(
 
 planet.position.set(
 
-    -30,
+    -34,
 
     3,
 
@@ -80,24 +80,48 @@ scene.add(
 )
 const atmosphereGeometry = new THREE.SphereGeometry(
 
-    8.2,
+    28.72,
 
-    128,
+    96,
 
-    128
+    96
 
 )
 
-const atmosphereMaterial = new THREE.MeshBasicMaterial({
+const atmosphereMaterial = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    side: THREE.BackSide,
+    blending: THREE.AdditiveBlending,
+    vertexShader: `
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
 
-    color:0xff8c3a,
+        void main() {
+            vWorldNormal = normalize(mat3(modelMatrix) * normal);
+            vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+            vWorldPosition = worldPosition.xyz;
+            gl_Position = projectionMatrix * viewMatrix * worldPosition;
+        }
+    `,
+    fragmentShader: `
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
 
-    transparent:true,
+        void main() {
+            vec3 viewDirection = normalize(cameraPosition - vWorldPosition);
+            float rim = 1.0 - abs(dot(normalize(vWorldNormal), viewDirection));
+            float denseEdge = pow(clamp(rim, 0.0, 1.0), 2.15);
+            float outerMist = pow(clamp(rim, 0.0, 1.0), 5.4);
 
-    opacity:0.28,
+            vec3 deepAtmosphere = vec3(0.24, 0.032, 0.012);
+            vec3 hotRim = vec3(0.82, 0.19, 0.045);
+            vec3 colour = mix(deepAtmosphere, hotRim, outerMist * 0.62);
+            float alpha = denseEdge * 0.13 + outerMist * 0.075;
 
-    side:THREE.BackSide
-
+            gl_FragColor = vec4(colour, alpha);
+        }
+    `
 })
 
 export const atmosphere = new THREE.Mesh(
