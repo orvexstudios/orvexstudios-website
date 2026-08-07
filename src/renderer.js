@@ -29,7 +29,7 @@ renderer.setPixelRatio(
 
         window.devicePixelRatio,
 
-        window.innerWidth < 768 ? 1.35 : 1.75
+        2
 
     )
 
@@ -84,18 +84,6 @@ composer.addPass(
 )
 
 window.addEventListener('resize', () => {
-
-    renderer.setPixelRatio(
-
-        Math.min(
-
-            window.devicePixelRatio,
-
-            window.innerWidth < 768 ? 1.35 : 1.75
-
-        )
-
-    )
 
     camera.aspect =
 
