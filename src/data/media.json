@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    { "id": "trailers", "label": "Trailers", "items": [] },
+    { "id": "screenshots", "label": "Screenshots", "items": [] },
+    { "id": "creature-gallery", "label": "Creature Gallery", "items": [] },
+    { "id": "behind-the-scenes", "label": "Behind The Scenes", "items": [] }
+  ]
+}

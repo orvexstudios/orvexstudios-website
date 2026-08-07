@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "jurassic-genesis",
+      "slug": "jurassic-genesis",
+      "title": "Jurassic Genesis",
+      "eyebrow": "ORVEX Original",
+      "summary": "The first major in-house production by ORVEX STUDIOS.",
+      "description": "Jurassic Genesis combines realistic dinosaur animation, cinematic storytelling and immersive environments powered by Unreal Engine.",
+      "status": "in-development",
+      "statusLabel": "In Development",
+      "engine": "Unreal Engine 5",
+      "genre": "Cinematic Experience",
+      "focus": "Creature Animation",
+      "studio": "ORVEX STUDIOS",
+      "featured": true,
+      "cover": null,
+      "screenshots": [],
+      "videos": [],
+      "developmentUpdates": [],
+      "credits": [
+        { "role": "Studio", "name": "ORVEX STUDIOS" }
+      ]
+    }
+  ]
+}

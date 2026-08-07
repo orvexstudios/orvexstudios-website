@@ -1,20 +1,24 @@
 import * as THREE from 'three'
 
 import { scene } from './scene'
+import { assetUrl } from './platform/assets'
+import { getSettings } from './settings'
+
+const lowQuality = getSettings().quality === 'low'
 
 const geometry = new THREE.SphereGeometry(
 
     28,
 
-    128,
+    lowQuality ? 64 : 128,
 
-    128
+    lowQuality ? 64 : 128
 
 )
 
 const loader = new THREE.TextureLoader()
 
-const planetTexture = loader.load('/planet_color.png')
+const planetTexture = loader.load(assetUrl('planet_color.png'))
 
 const material = new THREE.MeshStandardMaterial({
 
@@ -82,9 +86,9 @@ const atmosphereGeometry = new THREE.SphereGeometry(
 
     28.34,
 
-    96,
+    lowQuality ? 48 : 96,
 
-    96
+    lowQuality ? 48 : 96
 
 )
 

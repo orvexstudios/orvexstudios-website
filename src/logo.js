@@ -3,13 +3,20 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
 
 import { scene } from './scene'
+import { assetUrl } from './platform/assets'
+import { getSettings } from './settings'
 
 export const logo = new THREE.Group()
 
 const energyShaders = []
 
-function enhanceLogoMaterial(material) {
+function enhanceLogoMaterial(material, textures) {
     if (!material) return
+
+    material.map = textures.baseColor
+    material.normalMap = textures.normal
+    material.roughnessMap = textures.metallicRoughness
+    material.metalnessMap = textures.metallicRoughness
 
     // Preserve the original maps and colours. Only their surface response changes.
     material.metalness = Math.max(material.metalness ?? 0, .48)
@@ -61,12 +68,11 @@ function enhanceLogoMaterial(material) {
 const loader = new GLTFLoader()
 loader.setMeshoptDecoder(MeshoptDecoder)
 
-const logoSources = [
-    '/ORVEXLOGO-web.glb',
-    'https://raw.githubusercontent.com/orvexstudios/orvexstudios-website/main/public/ORVEXLOGO-web.glb'
-]
+const textureLoader = new THREE.TextureLoader()
+const qualityDirectory = getSettings().quality === 'low' ? 'logo/low' : 'logo/desktop'
+const logoSource = assetUrl(`${qualityDirectory}/geometry.glb`)
 
-function mountLogo(gltf) {
+function mountLogo(gltf, textures) {
         const model = gltf.scene
         const bounds = new THREE.Box3().setFromObject(model)
         const size = bounds.getSize(new THREE.Vector3())
@@ -84,29 +90,33 @@ function mountLogo(gltf) {
             child.receiveShadow = false
 
             const materials = Array.isArray(child.material) ? child.material : [child.material]
-            materials.forEach(enhanceLogoMaterial)
+            materials.forEach((material) => enhanceLogoMaterial(material, textures))
         })
 
         logo.add(model)
         logo.userData.model = model
 }
 
-function loadLogo(sourceIndex = 0) {
-    loader.load(
-        logoSources[sourceIndex],
-        mountLogo,
-        undefined,
-        (error) => {
-            const nextSource = sourceIndex + 1
+async function loadLogo() {
+    try {
+        const [gltf, baseColor, normal, metallicRoughness] = await Promise.all([
+            loader.loadAsync(logoSource),
+            textureLoader.loadAsync(assetUrl(`${qualityDirectory}/baseColor.jpg`)),
+            textureLoader.loadAsync(assetUrl(`${qualityDirectory}/normal.jpg`)),
+            textureLoader.loadAsync(assetUrl(`${qualityDirectory}/metallicRoughness.png`))
+        ])
 
-            if (nextSource < logoSources.length) {
-                loadLogo(nextSource)
-                return
-            }
+        baseColor.colorSpace = THREE.SRGBColorSpace
 
-            console.error('Unable to load the ORVEX logo model.', error)
+        for (const texture of [baseColor, normal, metallicRoughness]) {
+            texture.flipY = false
+            texture.anisotropy = 4
         }
-    )
+
+        mountLogo(gltf, { baseColor, normal, metallicRoughness })
+    } catch (error) {
+        console.error('Unable to load the ORVEX logo model.', error)
+    }
 }
 
 loadLogo()

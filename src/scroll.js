@@ -12,8 +12,19 @@ function raf(time) {
 
     lenis.raf(time)
 
-    requestAnimationFrame(raf)
+    frameId = requestAnimationFrame(raf)
 
 }
 
-requestAnimationFrame(raf)
+let frameId = requestAnimationFrame(raf)
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        cancelAnimationFrame(frameId)
+        lenis.stop()
+        return
+    }
+
+    lenis.start()
+    frameId = requestAnimationFrame(raf)
+})

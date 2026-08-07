@@ -2,14 +2,18 @@ import * as THREE from 'three'
 
 import { scene } from './scene'
 import { camera } from './camera'
+import { getSettings } from './settings'
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 
+const settings = getSettings()
+const lowQuality = settings.quality === 'low'
+
 export const renderer = new THREE.WebGLRenderer({
 
-    antialias: true,
+    antialias: !lowQuality,
 
     alpha: false
 
@@ -29,7 +33,7 @@ renderer.setPixelRatio(
 
         window.devicePixelRatio,
 
-        2
+        lowQuality ? 1 : 2
 
     )
 
@@ -69,9 +73,9 @@ const bloomPass = new UnrealBloomPass(
 
     ),
 
-    1.2,
+    lowQuality ? .72 : 1.2,
 
-    0.35,
+    lowQuality ? .22 : 0.35,
 
     0.85
 
@@ -116,5 +120,7 @@ window.addEventListener('resize', () => {
         window.innerHeight
 
     )
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, lowQuality ? 1 : 2))
 
 })

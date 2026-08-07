@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "tyrannosaurus-rex",
+      "slug": "tyrannosaurus-rex",
+      "name": "Tyrannosaurus Rex",
+      "shortName": "T. Rex",
+      "species": "Tyrannosaurus rex",
+      "status": "rigged",
+      "statusLabel": "Fully Rigged",
+      "rigStatus": "fully-rigged",
+      "engineCompatibility": [],
+      "render": null,
+      "animationPreview": null,
+      "gallery": [],
+      "developmentInformation": "Handcrafted with a focus on realistic anatomy, believable movement and game-ready quality."
+    },
+    {
+      "id": "parasaurolophus",
+      "slug": "parasaurolophus",
+      "name": "Parasaurolophus",
+      "shortName": "Para",
+      "species": "Parasaurolophus",
+      "status": "in-development",
+      "statusLabel": "In Development",
+      "rigStatus": "not-published",
+      "engineCompatibility": [],
+      "render": null,
+      "animationPreview": null,
+      "gallery": [],
+      "developmentInformation": "Development details will be published as production progresses."
+    },
+    {
+      "id": "ankylosaurus",
+      "slug": "ankylosaurus",
+      "name": "Ankylosaurus",
+      "shortName": "Anky",
+      "species": "Ankylosaurus",
+      "status": "in-development",
+      "statusLabel": "In Development",
+      "rigStatus": "not-published",
+      "engineCompatibility": [],
+      "render": null,
+      "animationPreview": null,
+      "gallery": [],
+      "developmentInformation": "Development details will be published as production progresses."
+    },
+    {
+      "id": "triceratops",
+      "slug": "triceratops",
+      "name": "Triceratops",
+      "shortName": "Trike",
+      "species": "Triceratops",
+      "status": "in-development",
+      "statusLabel": "In Development",
+      "rigStatus": "not-published",
+      "engineCompatibility": [],
+      "render": null,
+      "animationPreview": null,
+      "gallery": [],
+      "developmentInformation": "Development details will be published as production progresses."
+    }
+  ]
+}

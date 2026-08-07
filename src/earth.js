@@ -1,6 +1,10 @@
 import * as THREE from 'three'
 
 import { scene } from './scene'
+import { assetUrl } from './platform/assets'
+import { getSettings } from './settings'
+
+const lowQuality = getSettings().quality === 'low'
 
 const EARTH_POSITION = new THREE.Vector3(34, -2, -82)
 const EARTH_RADIUS = 12
@@ -59,9 +63,9 @@ export function loadEarth() {
     if (loadPromise) return loadPromise
 
     loadPromise = Promise.all([
-        textureLoader.loadAsync('/earth/earth_atmos_2048.jpg'),
-        textureLoader.loadAsync('/earth/earth_normal_2048.jpg'),
-        textureLoader.loadAsync('/earth/earth_clouds_1024.png')
+        textureLoader.loadAsync(assetUrl('earth/earth_atmos_2048.jpg')),
+        textureLoader.loadAsync(assetUrl('earth/earth_normal_2048.jpg')),
+        textureLoader.loadAsync(assetUrl('earth/earth_clouds_1024.png'))
     ]).then(([dayMap, normalMap, cloudMap]) => {
         dayMap.colorSpace = THREE.SRGBColorSpace
         cloudMap.colorSpace = THREE.SRGBColorSpace
@@ -71,7 +75,7 @@ export function loadEarth() {
         cloudMap.anisotropy = 4
 
         earthSurface = new THREE.Mesh(
-            new THREE.SphereGeometry(EARTH_RADIUS, 96, 64),
+            new THREE.SphereGeometry(EARTH_RADIUS, lowQuality ? 48 : 96, lowQuality ? 32 : 64),
             new THREE.MeshPhysicalMaterial({
                 map: dayMap,
                 normalMap,
@@ -86,7 +90,7 @@ export function loadEarth() {
         )
 
         cloudLayer = new THREE.Mesh(
-            new THREE.SphereGeometry(EARTH_RADIUS * 1.012, 96, 64),
+            new THREE.SphereGeometry(EARTH_RADIUS * 1.012, lowQuality ? 48 : 96, lowQuality ? 32 : 64),
             new THREE.MeshStandardMaterial({
                 map: cloudMap,
                 alphaMap: cloudMap,
@@ -99,7 +103,7 @@ export function loadEarth() {
         )
 
         atmosphere = new THREE.Mesh(
-            new THREE.SphereGeometry(EARTH_RADIUS * 1.075, 80, 48),
+            new THREE.SphereGeometry(EARTH_RADIUS * 1.075, lowQuality ? 40 : 80, lowQuality ? 24 : 48),
             createAtmosphereMaterial()
         )
 

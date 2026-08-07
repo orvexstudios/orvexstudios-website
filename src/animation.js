@@ -8,12 +8,27 @@ import { composer } from './renderer'
 import { mouse } from './mouse'
 import { scene, cameraTarget } from './scene'
 import { updateContactCinematic } from './contactCinematic'
+import { getSettings } from './settings'
 
 const timer = new THREE.Timer()
+const settings = getSettings()
+const reducedFrameInterval = settings.reduceMotion ? 1000 / 20 : 0
 
-export function animate() {
+let frameId
+let running = false
+let windowActive = !document.hidden
+let previousFrameTime = 0
 
-    requestAnimationFrame(animate)
+function schedule() {
+    frameId = requestAnimationFrame(renderLoop)
+}
+
+function renderLoop(frameTime) {
+    if (!running) return
+    schedule()
+
+    if (!windowActive || (reducedFrameInterval && frameTime - previousFrameTime < reducedFrameInterval)) return
+    previousFrameTime = frameTime
 
     timer.update()
 
@@ -48,4 +63,23 @@ export function animate() {
 
     composer.render()
 
+}
+
+function syncDocumentVisibility() {
+    windowActive = !document.hidden
+}
+
+document.addEventListener('visibilitychange', syncDocumentVisibility)
+window.addEventListener('blur', () => { windowActive = false })
+window.addEventListener('focus', () => { windowActive = !document.hidden })
+
+export function startAnimation() {
+    if (running) return
+    running = true
+    schedule()
+}
+
+export function stopAnimation() {
+    running = false
+    if (frameId) cancelAnimationFrame(frameId)
 }

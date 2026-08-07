@@ -1,31 +1,42 @@
 import './style.css'
 import { heroAnimation } from "./animations/hero"
+import { getSettings } from './settings'
+import { initSettingsPanel } from './ui/settingsPanel'
+import { initSite } from './ui/site'
 
-import './scene'
-import './camera'
-import './renderer'
-import './scroll'
+const settings = getSettings()
 
-import './lights'
-import './stars'
-import './planet'
-import './logo'
-import './mouse'
+if (!settings.reduceMotion) heroAnimation()
+initSite()
+initSettingsPanel()
 
-import { animate } from './animation'
+let experiencePromise
 
-import { hideIntro } from './ui/intro'
-import { startExplore } from './ui/camera'
+function loadExperience() {
+    if (settings.disable3d) return Promise.resolve(null)
+    if (!experiencePromise) {
+        experiencePromise = import('./experience').then((experience) => {
+            experience.startExperience()
+            return experience
+        })
+    }
+    return experiencePromise
+}
 
-animate()
-
-heroAnimation()
+loadExperience()
 
 const exploreButton = document.querySelector('.primary')
 
 exploreButton.addEventListener('click', () => {
 
-    hideIntro()
-    startExplore()
+    loadExperience().then((experience) => {
+        if (experience) {
+            experience.startExplore()
+            return
+        }
+
+        document.querySelector('.overlay')?.classList.add('is-dismissed')
+        document.querySelector('#about')?.scrollIntoView({ behavior: settings.reduceMotion ? 'auto' : 'smooth' })
+    })
 
 })

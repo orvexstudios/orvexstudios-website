@@ -7,6 +7,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob:; connect-src 'self' ws: wss: ipc: http://ipc.localhost; worker-src 'self' blob:; form-action 'self' mailto:">
+
     <title>ORVEX STUDIOS | Independent Game Development & Creature Animation</title>
 
     <meta name="description" content="ORVEX STUDIOS is an independent game development and CGI studio creating cinematic creature animations, Unreal Engine worlds and next-generation dinosaur experiences.">
@@ -19,9 +21,7 @@
 
     <meta name="theme-color" content="#000000">
 
-    <link rel="icon" href="/star.png" type="image/png">
-
-    <link rel="preload" href="/ORVEXLOGO-web.glb" as="fetch" type="model/gltf-binary" crossorigin>
+    <link rel="icon" href="%BASE_URL%star.png" type="image/png">
 
     <link rel="canonical" href="https://orvexstudios.com/">
 
@@ -1674,51 +1674,6 @@
 </footer>
 
 <script type="module" src="/src/main.js"></script>
-
-<script>
-    document.querySelectorAll('[data-copy-email]').forEach((button) => {
-        button.addEventListener('click', async () => {
-            const email = button.dataset.copyEmail;
-            const status = button.closest('.contact-cinematic-copy, .contact-command-copy, .contact-card').querySelector('.copy-status');
-            const label = button.querySelector('.copy-label');
-            try {
-                await navigator.clipboard.writeText(email);
-            } catch {
-                const field = document.createElement('textarea');
-                field.value = email;
-                field.style.position = 'fixed';
-                field.style.opacity = '0';
-                document.body.appendChild(field);
-                field.select();
-                document.execCommand('copy');
-                field.remove();
-            }
-            label.textContent = 'Copied';
-            status.textContent = `${email} copied to clipboard.`;
-            button.classList.add('is-copied');
-            window.setTimeout(() => {
-                label.textContent = 'Copy email';
-                status.textContent = '';
-                button.classList.remove('is-copied');
-            }, 2200);
-        });
-    });
-
-    const revealItems = document.querySelectorAll(
-        '.about-container > *, .project-header, .project-card, .creature-card, .tech-card, .pipeline-card, .roadmap-card, .why-card, .stat-card, .news-card, .media-box, .career-card, .footer'
-    );
-    revealItems.forEach((item) => item.classList.add('studio-reveal'));
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.12 });
-
-    revealItems.forEach((item) => revealObserver.observe(item));
-</script>
 
 </body>
 

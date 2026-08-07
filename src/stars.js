@@ -1,12 +1,14 @@
 import * as THREE from 'three'
 
 import { scene } from './scene'
+import { assetUrl } from './platform/assets'
+import { getSettings } from './settings'
 
 const loader = new THREE.TextureLoader()
 
-const starTexture = loader.load('/star.png')
+const starTexture = loader.load(assetUrl('star.png'))
 
-const starCount = 15000
+const starCount = getSettings().quality === 'low' ? 5000 : 15000
 
 const starGeometry = new THREE.BufferGeometry()
 

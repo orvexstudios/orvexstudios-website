@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "orvex-website-launch",
+      "slug": "orvex-website-launch",
+      "title": "ORVEX Website Launch",
+      "publishedAt": null,
+      "displayDate": "August 2026",
+      "category": "Studio",
+      "image": null,
+      "excerpt": "The official ORVEX STUDIOS website is now online.",
+      "body": "The official ORVEX STUDIOS website is now online.",
+      "status": "published"
+    },
+    {
+      "id": "jurassic-genesis-development",
+      "slug": "jurassic-genesis-development",
+      "title": "Jurassic Genesis",
+      "publishedAt": null,
+      "displayDate": "In Development",
+      "category": "Project Update",
+      "image": null,
+      "excerpt": "Active development continues on our first featured project.",
+      "body": "Active development continues on our first featured project.",
+      "status": "preview"
+    },
+    {
+      "id": "creature-showcase-preview",
+      "slug": "creature-showcase-preview",
+      "title": "Creature Showcase",
+      "publishedAt": null,
+      "displayDate": "Next Update",
+      "category": "Creature Reveal",
+      "image": null,
+      "excerpt": "New creature renders and development logs are coming soon.",
+      "body": "New creature renders and development logs are coming soon.",
+      "status": "preview"
+    }
+  ]
+}

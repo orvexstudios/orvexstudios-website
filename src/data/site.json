@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "brand": {
+    "name": "ORVEX STUDIOS",
+    "tagline": "Creating Worlds Beyond Reality.",
+    "defaultLocale": "en",
+    "canonicalOrigin": "https://orvexstudios.com"
+  },
+  "navigation": [
+    { "id": "home", "label": "Home", "path": "/" },
+    { "id": "about", "label": "About", "path": "/about" },
+    { "id": "projects", "label": "Projects", "path": "/projects" },
+    { "id": "creatures", "label": "Creature Library", "path": "/creatures" },
+    { "id": "media", "label": "Media", "path": "/media" },
+    { "id": "news", "label": "News", "path": "/news" },
+    { "id": "technology", "label": "Technology", "path": "/technology" },
+    { "id": "careers", "label": "Careers", "path": "/careers" },
+    { "id": "contact", "label": "Contact", "path": "/contact" }
+  ],
+  "features": {
+    "threeDimensionalScenes": true,
+    "pushNotifications": false,
+    "remoteContent": false
+  }
+}

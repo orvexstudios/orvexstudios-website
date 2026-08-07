@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "founder",
+      "label": "Founder & Creative Director",
+      "channel": "Leadership",
+      "email": "founder@orvexstudios.com",
+      "description": "Direct communication with the founder of ORVEX STUDIOS."
+    },
+    {
+      "id": "general",
+      "label": "General Contact",
+      "channel": "Studio Desk",
+      "email": "contact@orvexstudios.com",
+      "description": "General questions, collaborations and project inquiries."
+    },
+    {
+      "id": "business",
+      "label": "Business & Partnerships",
+      "channel": "Growth",
+      "email": "business@orvexstudios.com",
+      "description": "Business opportunities, partnerships and investments."
+    },
+    {
+      "id": "careers",
+      "label": "Careers",
+      "channel": "Talent",
+      "email": "careers@orvexstudios.com",
+      "description": "Join ORVEX STUDIOS and grow with us."
+    },
+    {
+      "id": "support",
+      "label": "Technical Support",
+      "channel": "Assistance",
+      "email": "support@orvexstudios.com",
+      "description": "Support for our projects, services and future products."
+    }
+  ]
+}

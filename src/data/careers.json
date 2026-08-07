@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "applicationEmail": "careers@orvexstudios.com",
+  "items": [
+    {
+      "id": "creature-artist",
+      "slug": "creature-artist",
+      "title": "Creature Artist",
+      "status": "future-position",
+      "statusLabel": "Future Position",
+      "description": "Position details will be published as ORVEX STUDIOS grows.",
+      "location": "To be announced",
+      "remote": "To be announced",
+      "requirements": []
+    },
+    {
+      "id": "3d-animator",
+      "slug": "3d-animator",
+      "title": "3D Animator",
+      "status": "future-position",
+      "statusLabel": "Future Position",
+      "description": "Position details will be published as ORVEX STUDIOS grows.",
+      "location": "To be announced",
+      "remote": "To be announced",
+      "requirements": []
+    },
+    {
+      "id": "environment-artist",
+      "slug": "environment-artist",
+      "title": "Environment Artist",
+      "status": "future-position",
+      "statusLabel": "Future Position",
+      "description": "Position details will be published as ORVEX STUDIOS grows.",
+      "location": "To be announced",
+      "remote": "To be announced",
+      "requirements": []
+    },
+    {
+      "id": "unreal-engine-developer",
+      "slug": "unreal-engine-developer",
+      "title": "Unreal Engine Developer",
+      "status": "future-position",
+      "statusLabel": "Future Position",
+      "description": "Position details will be published as ORVEX STUDIOS grows.",
+      "location": "To be announced",
+      "remote": "To be announced",
+      "requirements": []
+    }
+  ]
+}
