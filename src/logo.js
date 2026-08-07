@@ -118,9 +118,9 @@ export function updateLogo(elapsed) {
     if (logo.userData.model) {
         const model = logo.userData.model
 
-        // Slow satellite-like drift: one calm revolution in roughly three minutes.
-        model.rotation.z = elapsed * .035
-        model.rotation.x = Math.sin(elapsed * .055) * .045
-        model.rotation.y = Math.sin(elapsed * .045) * .075
+        // Slow lateral 3D turn around the vertical axis — no flat clock-like spin.
+        model.rotation.x = 0
+        model.rotation.y = elapsed * .035
+        model.rotation.z = 0
     }
 }
