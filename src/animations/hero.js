@@ -3,54 +3,65 @@ import gsap from "gsap"
 export function heroAnimation(){
 
     const tl = gsap.timeline()
+    const navbar = document.querySelector('.navbar')
+    const heroTitle = document.querySelector('.hero h1')
+    const heroCopy = document.querySelectorAll('.hero p')
+    const heroButtons = document.querySelectorAll('.hero-buttons button')
 
-    tl.from(".navbar",{
+    if (navbar) {
+        tl.from(navbar,{
 
-        y:-60,
+            y:-60,
 
-        opacity:0,
+            opacity:0,
 
-        duration:1,
+            duration:1,
 
-        ease:"power4.out"
+            ease:"power4.out"
 
-    })
+        })
+    }
 
-    .from(".hero h1 span",{
+    if (heroTitle) {
+        tl.from(heroTitle,{
 
-        y:120,
+            y:80,
 
-        opacity:0,
+            opacity:0,
 
-        stagger:.15,
+            duration:1.25,
 
-        duration:1.4,
+            ease:"power4.out"
 
-        ease:"power4.out"
+        }, "-=.55")
+    }
 
-    })
+    if (heroCopy.length) {
+        tl.from(heroCopy,{
 
-    .from(".hero p",{
+            opacity:0,
 
-        opacity:0,
+            y:40,
 
-        y:40,
+            duration:1
 
-        duration:1
+        }, "-=.8")
+    }
 
-    },"-=.8")
+    if (heroButtons.length) {
+        tl.from(heroButtons,{
 
-    .from(".hero-buttons button",{
+            opacity:0,
 
-        opacity:0,
+            y:35,
 
-        y:35,
+            stagger:.15,
 
-        stagger:.15,
+            duration:.8,
 
-        duration:.8,
+            ease:"power3.out"
 
-        ease:"power3.out"
+        }, "-=.6")
+    }
 
-    },"-=.6")
 }

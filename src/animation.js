@@ -2,19 +2,21 @@ import * as THREE from 'three'
 
 import { stars } from './stars'
 import { planet, atmosphere } from './planet'
-import { logo } from './logo'
+import { logo, updateLogo } from './logo'
 import { camera } from './camera'
 import { composer } from './renderer'
 import { mouse } from './mouse'
 import { scene, cameraTarget } from './scene'
 
-const clock = new THREE.Clock()
+const timer = new THREE.Timer()
 
 export function animate() {
 
     requestAnimationFrame(animate)
 
-    const elapsed = clock.getElapsedTime()
+    timer.update()
+
+    const elapsed = timer.getElapsed()
 
     stars.rotation.y = elapsed * 0.01
     stars.rotation.x = elapsed * 0.002
@@ -22,10 +24,10 @@ export function animate() {
     planet.rotation.y += 0.0004
     atmosphere.rotation.y += 0.0004
 
-    logo.rotation.y += 0.002
+    updateLogo(elapsed)
 
     logo.position.y =
-        Math.sin(elapsed * 0.8) * 0.25
+        Math.sin(elapsed * 0.35) * 0.12
 
     cameraTarget.position.y =
         Math.sin(elapsed * 0.8) * 0.05  
